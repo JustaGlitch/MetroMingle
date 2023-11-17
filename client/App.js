@@ -15,8 +15,8 @@ export default function App() {
 		//   </View>
 
 		<NavigationContainer>
-			<Stack.Navigator initialRouteName="Map">
-			<Stack.Screen
+			<Stack.Navigator initialRouteName="LogIn">
+				<Stack.Screen
 					name="Initial"
 					component={Screens.Initial}
 					options={{ headerShown: false }}
@@ -31,19 +31,27 @@ export default function App() {
 					component={Screens.Register}
 					options={{ headerShown: false }}
 				/>
+
+				<Stack.Screen
+					name="Routes"
+					component={Screens.Routes}
+					options={{ headerShown: false }}
+				/>
+
 				<Stack.Screen
 					name="Dashboard"
 					component={HomeTabs}
 					options={{ headerShown: false }}
 				/>
-				<Stack.Screen
-					name="Profile"
+
+				{/* <Stack.Screen
+					name="Routes"
 					component={HomeTabs}
 					options={{ headerShown: false }}
-				/>
+				/> */}
 				<Stack.Screen
 					name="Map"
-					component={Screens.RoutePage}
+					component={Screens.Map}
 					options={{ headerShown: false }}
 				/>
 
