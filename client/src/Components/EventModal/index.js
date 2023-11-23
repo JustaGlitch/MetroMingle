@@ -7,6 +7,8 @@ import {
   FlatList,
   Modal,
   Alert,
+  KeyboardAvoidingView,
+  Platform,
 } from "react-native";
 import GetAsync from "../AsyncStorageGet";
 import LoadingModal from "../LoadingModal";
@@ -30,8 +32,7 @@ const EventModal = ({ onClose, code, id }) => {
     if (!userName.trim()) {
       alert("Please enter a username before sending an invite.");
     } else {
-      Alert.alert(`Invite sent`,
-	  `Invite send to ${userName}`);
+      Alert.alert(`Invite sent`, `Invite send to ${userName}`);
       setInviteModalVisible(false);
       setUserName("");
     }
@@ -130,7 +131,10 @@ const EventModal = ({ onClose, code, id }) => {
                 </Pressable>
               )}
 
-              <Pressable style={styles.button1} onPress={() => setInviteModalVisible(true)}>
+              <Pressable
+                style={styles.button1}
+                onPress={() => setInviteModalVisible(true)}
+              >
                 <Text style={styles.buttonText}>Invite</Text>
               </Pressable>
             </View>
@@ -183,22 +187,28 @@ const EventModal = ({ onClose, code, id }) => {
             onRequestClose={() => setInviteModalVisible(false)}
             transparent={true}
           >
-            <View style={styles.modalInvite}>
-              <View style={styles.modalContentInvite}>
-                <Text>Invite User</Text>
-                <AppTextInput
-                  placeholder="Enter user's name"
-                  value={userName}
-                  onChangeText={(text) => setUserName(text)}
-                />
-                <Pressable onPress={sendInvite}>
-                  <Text>Send Invite</Text>
-                </Pressable>
-                <Pressable onPress={() => setInviteModalVisible(false)}>
-                  <Text>Cancel</Text>
-                </Pressable>
+            <KeyboardAvoidingView
+              behavior="height"
+			  keyboardVerticalOffset={100}
+			  style={[{flex: 1}, { top: 30 }]}
+            >
+              <View style={styles.modalInvite}>
+                <View style={styles.modalContentInvite}>
+                  <Text>Invite User</Text>
+                  <AppTextInput
+                    placeholder="Enter user's name"
+                    value={userName}
+                    onChangeText={(text) => setUserName(text)}
+                  />
+                  <Pressable onPress={sendInvite}>
+                    <Text>Send Invite</Text>
+                  </Pressable>
+                  <Pressable onPress={() => setInviteModalVisible(false)}>
+                    <Text>Cancel</Text>
+                  </Pressable>
+                </View>
               </View>
-            </View>
+            </KeyboardAvoidingView>
           </Modal>
         </>
       )}
@@ -274,23 +284,26 @@ const styles = StyleSheet.create({
   },
   modalContentInvite: {
     backgroundColor: "white",
-    padding: 15,
     borderRadius: 10,
-    width: "90%",
+    width: "95%",
     height: "25%",
     borderWidth: 1.5,
+    overflow: "hidden",
+    paddingLeft: 10,
+	paddingTop: 10,
+	marginBottom: 0
   },
   button1: {
-	padding: 10,
-	backgroundColor: 'rgb(71,141,185)' ,
-	borderRadius: 5,
-	margin: 10,
+    padding: 10,
+    backgroundColor: "rgb(71,141,185)",
+    borderRadius: 5,
+    margin: 10,
   },
-  buttonText:{
-	color: "white",
-	fontWeight: '800',
-	alignSelf: "center"
-  }
+  buttonText: {
+    color: "white",
+    fontWeight: "800",
+    alignSelf: "center",
+  },
 });
 
 export default EventModal;
